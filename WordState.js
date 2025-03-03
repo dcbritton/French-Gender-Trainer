@@ -7,15 +7,18 @@ const CURRENT_WORD_INDEX = 0
 class WordState {
 
     #wordBuffer = []
+    #refillBuffer = () => {}
 
     constructor(getNextWordSet) {
-        this.refillBuffer = () => {
-            this.#wordBuffer = getNextWordSet()
+        // this.#refillBuffer() must be async since the injected dependency, getNextWordSet, may be async
+        this.#refillBuffer = async () => {
+            this.#wordBuffer = await getNextWordSet()
         }
     }
 
-    init() {
-        this.refillBuffer()
+    // must be async since this.#refillBuffer() is async
+    async init() {
+        await this.#refillBuffer()
         document.getElementById("current-word").innerText = this.getCurrentWord()
     }
 

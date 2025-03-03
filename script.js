@@ -1,7 +1,12 @@
+// script.js
 // this file contains scripts for the front-end
 
-//
-function getTestWords() {
+async function fetchNextWordSet() {
+    const response = await window.fromMain.fetchNextWordSet()
+    return response
+}
+
+function fetchMockWordSet() {
     return [
         ["temps", "m"],
         ["peu", "m"],
@@ -10,7 +15,7 @@ function getTestWords() {
     ]
 }
 
-const wordState = new WordState(getTestWords)
+const wordState = new WordState(fetchMockWordSet)
 const scoreState = new ScoreState()
 
 function setup() {
