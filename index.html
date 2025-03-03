@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="script.js"></script> 
+        <link rel="stylesheet" href="style.css">
+        <title>french gender trainer 🇫🇷</title>
+    </head>
+    <body onload="wordState.init()">
+        <h1>french gender trainer 🇫🇷</h1>
+        <div class="score-wrapper">
+            <span id="current-score"></span>
+        </div>
+        <div class="word-wrapper">
+            <span id="current-word"></span>
+        </div>
+        <div class="buttons-wrapper">
+            <button id="masc-button" onclick="handleMascButtonClick()">M ♂</button>
+            <button id="fem-button" onclick="handleFemButtonClick()">F ♀</button>
+        </div>
+        <div class="quit-wrapper">
+            <button id="quit">Quit</button>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "french-gender-trainer",
+  "version": "1.0.0",
+  "description": "An application to quiz the user on noun genders in French.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "David C. Britton",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^34.3.0"
+  }
+}
