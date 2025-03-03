@@ -10,8 +10,8 @@ function getTestWords() {
     ]
 }
 
-var wordState = new WordState(getTestWords)
-var scoreState = new ScoreState()
+const wordState = new WordState(getTestWords)
+const scoreState = new ScoreState()
 
 function setup() {
     wordState.init()
