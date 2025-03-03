@@ -21,11 +21,11 @@ function setup() {
 // masculine button onclick
 function handleMascButtonClick() {
     scoreState.check("m")
-    wordState.getNextWord()
+    wordState.next()
 }
 
 // feminine button onclick
 function handleFemButtonClick() {
     scoreState.check("f")
-    wordState.getNextWord()
+    wordState.next()
 }

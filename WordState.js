@@ -5,26 +5,30 @@ const CURRENT_WORD_INDEX = 0
 
 // tracks the state of current and following words. responsible for getting next set of words
 class WordState {
+
+    #wordBuffer = []
+
     constructor(getNextWordSet) {
-        this.wordBuffer = []
         this.refillBuffer = () => {
-            this.wordBuffer = getNextWordSet()
+            this.#wordBuffer = getNextWordSet()
         }
-        this.currentWord = ""
-        this.currentGender = ""
     }
 
     init() {
         this.refillBuffer()
-        this.currentWord = this.wordBuffer[CURRENT_WORD_INDEX][WORD_INDEX]
-        this.currentGender = this.wordBuffer[CURRENT_WORD_INDEX][GENDER_INDEX]
-        document.getElementById("current-word").innerText = this.currentWord
+        document.getElementById("current-word").innerText = this.getCurrentWord()
     }
 
-    getNextWord() {
-        this.wordBuffer.shift()
-        this.currentWord = this.wordBuffer[CURRENT_WORD_INDEX][WORD_INDEX]
-        this.currentGender = this.wordBuffer[CURRENT_WORD_INDEX][GENDER_INDEX]
-        document.getElementById("current-word").innerText = this.currentWord
+    getCurrentWord() {
+        return this.#wordBuffer[CURRENT_WORD_INDEX][WORD_INDEX]
+    }
+
+    getCurrentGender() {
+        return this.#wordBuffer[CURRENT_WORD_INDEX][GENDER_INDEX]
+    }
+
+    next() {
+        this.#wordBuffer.shift()
+        document.getElementById("current-word").innerText = this.getCurrentWord()
     }
 }

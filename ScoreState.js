@@ -17,8 +17,8 @@ class ScoreState {
     // 
     check(response) {
         // incorrect response
-        if (response != wordState.currentGender) {
-            this.missedWords.push([wordState.currentWord, wordState.currentGender])
+        if (response != wordState.getCurrentGender()) {
+            this.missedWords.push([wordState.getCurrentWord(), wordState.getCurrentGender()])
         }
         else {
             this.numCorrect += 1
