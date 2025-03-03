@@ -11,34 +11,21 @@ function getTestWords() {
 }
 
 var wordState = new WordState(getTestWords)
+var scoreState = new ScoreState()
 
-var incorrects = []
-var numCorrect = 0
-var total = 0
+function setup() {
+    wordState.init()
+    scoreState.init()
+}
 
 // masculine button onclick
 function handleMascButtonClick() {
-    checkResponse("m")
+    scoreState.check("m")
     wordState.getNextWord()
 }
 
 // feminine button onclick
 function handleFemButtonClick() {
-    checkResponse("f")
+    scoreState.check("f")
     wordState.getNextWord()
-}
-
-//
-function checkResponse(response) {
-    // incorret
-    if (response != wordState.currentGender) {
-        incorrects.push(wordState.currentWord)
-    }
-    // correct
-    else {
-        numCorrect += 1
-    }
-
-    total += 1
-    document.getElementById("current-score").innerText = `${numCorrect}/${total}`
 }
