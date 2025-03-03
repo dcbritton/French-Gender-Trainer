@@ -30,8 +30,14 @@ class WordState {
         return this.#wordBuffer[CURRENT_WORD_INDEX][GENDER_INDEX]
     }
 
-    next() {
+    // must be async since this.#refillBuffer() is async
+    async next() {
         this.#wordBuffer.shift()
+        // refill this.#wordBuffer when empty
+        if (this.#wordBuffer.length == 0) {
+            await this.#refillBuffer()
+        }
+
         document.getElementById("current-word").innerText = this.getCurrentWord()
     }
 }
