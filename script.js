@@ -18,14 +18,8 @@ function setup() {
     scoreState.init()
 }
 
-// masculine button onclick
-function handleMascButtonClick() {
-    scoreState.check("m")
-    wordState.next()
-}
-
-// feminine button onclick
-function handleFemButtonClick() {
-    scoreState.check("f")
+// response button onclick
+function handleResponseButtonClick(response) {
+    scoreState.check(response)
     wordState.next()
 }
