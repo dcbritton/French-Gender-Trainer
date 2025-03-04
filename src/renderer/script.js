@@ -15,7 +15,7 @@ function fetchMockWordSet() {
     ]
 }
 
-const wordState = new WordState(fetchMockWordSet)
+const wordState = new WordState(fetchNextWordSet)
 const scoreState = new ScoreState()
 
 function setup() {

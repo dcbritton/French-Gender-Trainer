@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
 const WordSetFileReader = require('./WordSetFileReader.js')
 
-const wordSetFileReader = new WordSetFileReader(path.join(__dirname, 'data', 'output.csv'))
+const wordSetFileReader = new WordSetFileReader(path.join(__dirname, '..', '..', 'data', 'output.csv'))
 const WORD_SET_SIZE = 50
 
 const createWindow = () => {
@@ -10,11 +10,11 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, '..', 'preload', 'preload.js')
     }
   })
 
-  win.loadFile('index.html')
+  win.loadFile(path.join(__dirname, '..', 'renderer', 'index.html'))
 }
 
 app.whenReady().then(() => {

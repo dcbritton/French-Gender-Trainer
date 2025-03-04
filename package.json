@@ -2,7 +2,7 @@
   "name": "french-gender-trainer",
   "version": "1.0.0",
   "description": "An application to quiz the user on noun genders in French.",
-  "main": "main.js",
+  "main": "src/main/main.js",
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
