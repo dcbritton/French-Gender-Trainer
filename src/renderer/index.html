@@ -9,18 +9,22 @@
     </head>
     <body onload="setup()">
         <h1>french gender trainer 🇫🇷</h1>
+        <div class="quiz-content-wrapper">
+            <div class="word-wrapper">
+                <span id="current-word">...</span>
+            </div>
+            <div class="buttons-wrapper">
+                <button id="masc-button" onclick='handleResponseButtonClick("m")'>M ♂</button>
+                <button id="fem-button" onclick='handleResponseButtonClick("f")'>F ♀</button>
+            </div>
+        </div>
         <div class="score-wrapper">
             <span id="current-score"></span>
         </div>
-        <div class="word-wrapper">
-            <span id="current-word"></span>
-        </div>
-        <div class="buttons-wrapper">
-            <button id="masc-button" onclick='handleResponseButtonClick("m")'>M ♂</button>
-            <button id="fem-button" onclick='handleResponseButtonClick("f")'>F ♀</button>
-        </div>
         <div class="quit-wrapper">
-            <button id="quit">Quit</button>
+            <button id="quit-button">Quit</button>
+            <button id="view-mistakes-button">Review Mistakes</button>
+            <button id="save-progress-button">Save Progress</button>
         </div>
     </body>
 </html>

@@ -7,8 +7,8 @@ const WORD_SET_SIZE = 50
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 480,
+    height: 640,
     webPreferences: {
       preload: path.join(__dirname, '..', 'preload', 'preload.js')
     }
