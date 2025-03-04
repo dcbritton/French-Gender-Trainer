@@ -1,5 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
+const LineReader = require('./lineReader.js')
+
+const lineReader = new LineReader(path.join(__dirname, 'output.csv'), 10)
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -16,12 +19,20 @@ const createWindow = () => {
 app.whenReady().then(() => {
   ipcMain.handle('next-word-set', () => {
     console.log("request for words received")
-    return [
-      ["temps", "m"],
-      ["peu", "m"],
-      ["vie", "f"],
-      ["homme", "m"]
-    ]
+    return fetchCsvWordSet()
   })
   createWindow()
 })
+
+function fetchMockWordSet() {
+  return [
+    ["temps", "m"],
+    ["peu", "m"],
+    ["vie", "f"],
+    ["homme", "m"]
+  ]
+}
+
+function fetchCsvWordSet() {
+  return lineReader.getNextBatch()  
+}
