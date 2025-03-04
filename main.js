@@ -1,8 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
-const LineReader = require('./lineReader.js')
+const WordSetFileReader = require('./WordSetFileReader.js')
 
-const lineReader = new LineReader(path.join(__dirname, 'data', 'output.csv'))
+const wordSetFileReader = new WordSetFileReader(path.join(__dirname, 'data', 'output.csv'))
 const WORD_SET_SIZE = 50
 
 const createWindow = () => {
@@ -35,5 +35,5 @@ function fetchMockWordSet() {
 }
 
 function fetchCsvWordSet() {
-  return lineReader.getNextWordSet(WORD_SET_SIZE)  
+  return wordSetFileReader.getNextWordSet(WORD_SET_SIZE)  
 }

@@ -1,9 +1,9 @@
-// lineReader.js
+// WordSetFileReader.js
 
 const fs = require('node:fs')
 const readline = require('node:readline')
 
-module.exports = class LineReader {
+module.exports = class WordSetFileReader {
     #stream
     #rl
     #lineIterator
@@ -28,7 +28,6 @@ module.exports = class LineReader {
             lines.push(line.split(","))
         }
 
-        // console.log(lines)
         return lines
     }
 }
