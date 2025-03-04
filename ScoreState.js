@@ -17,12 +17,17 @@ class ScoreState {
 
     // 
     check(response) {
-        // incorrect response
-        if (response != wordState.getCurrentGender()) {
-            this.#missedWords.push([wordState.getCurrentWord(), wordState.getCurrentGender()])
-        }
-        else {
+        // empty gender entry, correct by default
+        if (wordState.getCurrentGender() == "") {
             this.#numCorrect += 1
+        }
+        // correct
+        else if (response == wordState.getCurrentGender()) {
+            this.#numCorrect += 1
+        }
+        // incorrect
+        else {
+            this.#missedWords.push([wordState.getCurrentWord(), wordState.getCurrentGender()])
         }
 
         this.#total += 1
