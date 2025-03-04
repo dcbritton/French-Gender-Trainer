@@ -13,9 +13,17 @@
             <div class="word-wrapper">
                 <span id="current-word">...</span>
             </div>
-            <div class="buttons-wrapper">
-                <button id="masc-button" onclick='handleResponseButtonClick("m")'>M ♂</button>
-                <button id="fem-button" onclick='handleResponseButtonClick("f")'>F ♀</button>
+            <div class="button-containers-container">
+                <div class="button-container">
+                    <button id="masc-button" onclick='handleResponseButtonClick("m")'>
+                        <img id="masc-icon" draggable="false" src="../../icons/masculine.svg">
+                    </button>
+                </div>
+                <div class="button-container">
+                    <button id="fem-button" onclick='handleResponseButtonClick("f")'>
+                        <img id="fem-icon" draggable="false" src="../../icons/feminine.svg">
+                    </button>
+                </div>
             </div>
         </div>
         <div class="score-wrapper">
