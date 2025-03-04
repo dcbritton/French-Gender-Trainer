@@ -3,6 +3,7 @@ const path = require('node:path')
 const LineReader = require('./lineReader.js')
 
 const lineReader = new LineReader(path.join(__dirname, 'data', 'output.csv'))
+const WORD_SET_SIZE = 50
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -34,5 +35,5 @@ function fetchMockWordSet() {
 }
 
 function fetchCsvWordSet() {
-  return lineReader.getNextBatch()  
+  return lineReader.getNextWordSet(WORD_SET_SIZE)  
 }
