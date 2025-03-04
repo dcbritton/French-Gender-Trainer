@@ -2,7 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
 const LineReader = require('./lineReader.js')
 
-const lineReader = new LineReader(path.join(__dirname, 'output.csv'), 10)
+const lineReader = new LineReader(path.join(__dirname, 'data', 'output.csv'))
 
 const createWindow = () => {
   const win = new BrowserWindow({
