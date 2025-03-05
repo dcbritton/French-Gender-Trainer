@@ -24,9 +24,9 @@ const pageBuilder = new PageBuilder(fetchButtons)
 const wordState = new WordState(fetchNextWordSet)
 const scoreState = new ScoreState()
 
-function setup() {
+async function setup() {
     pageBuilder.init()
-    wordState.init()
+    await wordState.init()
     scoreState.init()
 }
 
