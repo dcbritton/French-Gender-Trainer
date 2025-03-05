@@ -6,6 +6,11 @@ async function fetchNextWordSet() {
     return response
 }
 
+async function fetchButtons() {
+    const response = await window.fromMain.fetchButtons()
+    return response
+}
+
 function fetchMockWordSet() {
     return [
         ["temps", "m"],
@@ -15,10 +20,12 @@ function fetchMockWordSet() {
     ]
 }
 
+const pageBuilder = new PageBuilder(fetchButtons)
 const wordState = new WordState(fetchNextWordSet)
 const scoreState = new ScoreState()
 
 function setup() {
+    pageBuilder.init()
     wordState.init()
     scoreState.init()
 }

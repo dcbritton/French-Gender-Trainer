@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="PageBuilder.js"></script>
         <script src="WordState.js"></script>
         <script src="ScoreState.js"></script>
         <script src="script.js"></script> 
@@ -9,21 +10,9 @@
     </head>
     <body onload="setup()">
         <h1>french gender trainer 🇫🇷</h1>
-        <div class="quiz-content-wrapper">
+        <div class="quiz-content-wrapper" id="quiz-content-wrapper">
             <div class="word-wrapper">
                 <span id="current-word">...</span>
-            </div>
-            <div class="button-containers-container">
-                <div class="button-container">
-                    <button id="masc-button" onclick='handleResponseButtonClick("m")'>
-                        <img id="masc-icon" draggable="false" src="../../icons/masculine.svg">
-                    </button>
-                </div>
-                <div class="button-container">
-                    <button id="fem-button" onclick='handleResponseButtonClick("f")'>
-                        <img id="fem-icon" draggable="false" src="../../icons/feminine.svg">
-                    </button>
-                </div>
             </div>
         </div>
         <div class="score-wrapper">
@@ -34,5 +23,6 @@
             <button id="view-mistakes-button">Review Mistakes</button>
             <button id="save-progress-button">Save Progress</button>
         </div>
+        <div id="debug">default</div>
     </body>
 </html>
