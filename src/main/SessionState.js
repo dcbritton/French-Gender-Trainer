@@ -1,11 +1,16 @@
+// SessionState.js
+
 // declare constants for WordState
 const WORD_INDEX = 0
 const GENDER_INDEX = 1
 const CURRENT_WORD_INDEX = 0
 
 // tracks the state of current and following words. responsible for getting next set of words
-class WordState {
+module.exports = class SessionState {
 
+    #numWordsSeen = 0
+    #numCorrect = 0
+    #missedWords = []
     #wordBuffer = []
     #refillBuffer = async () => {}
 
@@ -19,7 +24,14 @@ class WordState {
     // must be async since this.#refillBuffer() is async
     async init() {
         await this.#refillBuffer()
-        document.getElementById("current-word").innerText = this.getCurrentWord()
+    }
+
+    getNumWordsSeen() {
+        return this.#numWordsSeen
+    }
+
+    getNumCorrect() {
+        return this.#numCorrect
     }
 
     getCurrentWord() {
@@ -37,7 +49,18 @@ class WordState {
         if (this.#wordBuffer.length == 0) {
             await this.#refillBuffer()
         }
+    }
 
-        document.getElementById("current-word").innerText = this.getCurrentWord()
+    // 
+    updateScore(response) {
+        // correct if response matches currentGender, if gender entry is '' then correct by default
+        if (response == this.getCurrentGender() || this.getCurrentGender() == "") {
+            this.#numCorrect += 1
+        }
+        // incorrect
+        else {
+            this.#missedWords.push([this.getCurrentWord(), this.getCurrentGender()])
+        }
+        this.#numWordsSeen += 1
     }
 }

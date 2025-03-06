@@ -1,10 +1,13 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
 const fs = require('node:fs')
+
 const WordSetFileReader = require('./WordSetFileReader.js')
+const SessionState = require('./SessionState.js')
 
 const wordSetFileReader = new WordSetFileReader(path.join(__dirname, '..', '..', 'data', 'output.csv'))
-const WORD_SET_SIZE = 50
+const sessionState = new SessionState(fetchCsvWordSet)
+const WORD_SET_SIZE = 20
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -21,15 +24,30 @@ const createWindow = () => {
 }
 
 app.whenReady().then(() => {
-  // handler for next word set request
-  ipcMain.handle('next-word-set', () => {
-    console.log("request for words received")
-    return fetchCsvWordSet()
+
+  // handler for starting session
+  ipcMain.handle('start-session', async () => {
+    await sessionState.init()
+    return {
+      nextWord: sessionState.getCurrentWord(),
+      numCorrect: sessionState.getNumCorrect(),
+      numWordsSeen: sessionState.getNumWordsSeen()
+    }
+  })
+
+  // handler for answer processing
+  ipcMain.handle('process-answer', async (_event, answer) => {
+    sessionState.updateScore(answer)
+    await sessionState.next()
+    return {
+      nextWord: sessionState.getCurrentWord(),
+      numCorrect: sessionState.getNumCorrect(),
+      numWordsSeen: sessionState.getNumWordsSeen() 
+    }
   })
 
   // handler for button components request
   ipcMain.handle('buttons', async () => {
-    console.log("request for buttons received")
     return fetchButtons()
   })
 

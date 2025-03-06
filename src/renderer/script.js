@@ -1,8 +1,13 @@
 // script.js
 // this file contains scripts for the front-end
 
-async function fetchNextWordSet() {
-    const response = await window.fromMain.fetchNextWordSet()
+async function startSession() {
+    const response = await window.fromMain.startSession()
+    return response
+}
+
+async function processAnswer(answer) {
+    const response = await window.fromMain.processAnswer(answer)
     return response
 }
 
@@ -11,27 +16,15 @@ async function fetchButtons() {
     return response
 }
 
-function fetchMockWordSet() {
-    return [
-        ["temps", "m"],
-        ["peu", "m"],
-        ["vie", "f"],
-        ["homme", "m"]
-    ]
-}
-
-const pageBuilder = new PageBuilder(fetchButtons)
-const wordState = new WordState(fetchNextWordSet)
-const scoreState = new ScoreState()
+const pageBuilder = new PageBuilder(fetchButtons, startSession, processAnswer)
 
 async function setup() {
-    pageBuilder.init()
-    await wordState.init()
-    scoreState.init()
+    await pageBuilder.init()
 }
 
 // response button onclick
-function handleResponseButtonClick(response) {
-    scoreState.check(response)
-    wordState.next()
+function handleResponseButtonClick(answer) {
+    // pageBuilder asks main process for score data and next word
+    pageBuilder.processAnswer(answer)
+    //
 }

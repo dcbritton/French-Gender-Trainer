@@ -5,13 +5,27 @@ class PageBuilder {
     #buttonHTMLs = []
     #fillButtonHTMLs = async () => {}
     
-    constructor(getButtons) {
+    constructor(getButtons, startSession, processAnswer) {
         this.#fillButtonHTMLs = async () => {
             this.#buttonHTMLs = await getButtons()
+        }
+
+        this.processAnswer = async (answer) => {
+            const response = await processAnswer(answer)
+            document.getElementById("current-word").innerText = response.nextWord
+            document.getElementById("current-score").innerText = `${response.numCorrect}/${response.numWordsSeen}`
+            
+        }
+
+        this.startSession = async () => {
+            const response = await startSession()
+            document.getElementById("current-word").innerText = response.nextWord
+            document.getElementById("current-score").innerText = `${response.numCorrect}/${response.numWordsSeen}`
         }
     }
 
     async init() {
+        await this.startSession()
         await this.#fillButtonHTMLs()
         this.#createButtons()
     }
@@ -30,6 +44,5 @@ class PageBuilder {
         }
 
         document.getElementById("quiz-content-wrapper").appendChild(buttonContainerContainer)
-        return buttonContainer
     }
 }

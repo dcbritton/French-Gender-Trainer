@@ -3,6 +3,7 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('fromMain', {
-    fetchNextWordSet: () => ipcRenderer.invoke('next-word-set'),
+    startSession: () => ipcRenderer.invoke('start-session'),
+    processAnswer: (answer) => ipcRenderer.invoke('process-answer', answer),
     fetchButtons: () => ipcRenderer.invoke('buttons')
 })
