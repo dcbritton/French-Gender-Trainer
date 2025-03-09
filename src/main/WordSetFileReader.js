@@ -24,8 +24,8 @@ module.exports = class WordSetFileReader {
                 break
             }
 
-            // transform csv row into an array, push array onto lines
-            lines.push(line.split(","))
+            // turn row string into json object
+            lines.push(JSON.parse(line))
         }
 
         return lines

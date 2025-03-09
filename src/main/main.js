@@ -5,7 +5,7 @@ const fs = require('node:fs')
 const WordSetFileReader = require('./WordSetFileReader.js')
 const SessionState = require('./SessionState.js')
 
-const wordSetFileReader = new WordSetFileReader(path.join(__dirname, '..', '..', 'data', 'output.csv'))
+const wordSetFileReader = new WordSetFileReader(path.join(__dirname, '..', '..', 'data', 'fr.jsonl'))
 const sessionState = new SessionState(fetchCsvWordSet)
 const WORD_SET_SIZE = 20
 
