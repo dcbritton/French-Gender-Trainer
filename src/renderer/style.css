@@ -69,7 +69,6 @@ h1 {
 }
 
 #masc-button {
-    /* background-color: #d1f6ff; */
     background-color: #6badce;
     border: none;
 
@@ -108,7 +107,6 @@ h1 {
 }
 
 #fem-button {
-    /* background-color: #ffdbe9; */
     background-color: #dd909c;
     border: none;
 
@@ -143,5 +141,43 @@ h1 {
 }
 
 #fem-button:hover #fem-icon {
+    filter: brightness(33%);
+}
+
+#neuter-button {
+    background-color: #a1a1a1;
+    border: none;
+
+    font-size: larger;
+    font-family: 'Trebuchet MS';
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100px;
+    height: 80px;
+    border-radius: 25%;
+
+    transition: 333ms;
+}
+
+#neuter-button:hover {
+    filter: brightness(133%);
+    width: 105px;
+    height: 84px;
+}
+
+#neuter-button:active {
+    filter: brightness(66%);
+    width: 100px;
+    height: 80px;
+}
+
+#neuter-icon {
+    transition: 333ms;
+}
+
+#neuter-button:hover #neuter-icon{
     filter: brightness(33%);
 }

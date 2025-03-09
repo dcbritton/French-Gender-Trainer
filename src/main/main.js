@@ -77,6 +77,16 @@ function fetchButtons() {
         console.error(err)
         return ['<span>Issue acquiring buttons</span>']
     }
+
+    // get neuter button
+    try {
+        const data = fs.readFileSync(path.join(__dirname, 'components', 'neuterButton.html'), 'utf8')
+        buttonHTMLs.push(data)
+    }
+    catch (err) {
+        console.error(err)
+        return ['<span>Issue acquiring buttons</span>']
+    }
     
     return buttonHTMLs
 }
