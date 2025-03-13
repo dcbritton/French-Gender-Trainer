@@ -5,9 +5,9 @@ const fs = require('node:fs')
 const WordSetFileReader = require('./WordSetFileReader.js')
 const SessionState = require('./SessionState.js')
 
-const wordSetFileReader = new WordSetFileReader(path.join(__dirname, '..', '..', 'packs', 'de', 'mock_de.jsonl'))
-const sessionState = new SessionState(fetchCsvWordSet)
+const wordSetFileReader = new WordSetFileReader()
 const WORD_SET_SIZE = 10
+const sessionState = new SessionState(async () => { return await wordSetFileReader.getNextWordSet(WORD_SET_SIZE) })
 
 const createWindow = () => {
     const win = new BrowserWindow({
@@ -19,8 +19,7 @@ const createWindow = () => {
     })
 
     win.loadFile(path.join(__dirname, '..', 'renderer', 'index.html'))
-
-    // win.webContents.openDevTools()
+    win.webContents.openDevTools()
 }
 
 app.whenReady().then(() => {
@@ -49,6 +48,17 @@ app.whenReady().then(() => {
     // handler for button components request
     ipcMain.handle('buttons', async () => {
         return fetchButtons()
+    })
+
+    // handler for pack request when loading home page
+    ipcMain.handle('get-packs', async () => {
+        return getPackInfo()
+    })
+
+    // for pack selection
+    ipcMain.handle('select-pack', async (_event, id) => {
+        await wordSetFileReader.registerNewFilepath(path.join(__dirname, '..', '..', 'packs', id, `${id}.jsonl`))
+        console.log(`pack selected: ${id}`)
     })
 
     createWindow()
@@ -91,15 +101,27 @@ function fetchButtons() {
     return buttonHTMLs
 }
 
-function fetchMockWordSet() {
-    return [
-        ["temps", "m"],
-        ["peu", "m"],
-        ["vie", "f"],
-        ["homme", "m"]
-    ]
-}
+function getPackInfo() {
+    const packDirectory = path.join(__dirname, '..', '..', 'packs')
+    const directoryEntryNames = fs.readdirSync(packDirectory)
+    // console.log(packFolderNames)
+    const data = []
+    for (const entryName of directoryEntryNames) {
+        try {
+            // is it a directory
+            if (fs.statSync(path.join(packDirectory, entryName)).isDirectory()) {
+                const metadataFileName = path.join(packDirectory, entryName, `${entryName}`)
+                // check that the json file is there
+                if (fs.existsSync(`${metadataFileName}.json`)) {
+                    // read file, parse to JSON, append to data array
+                    data.push(JSON.parse(fs.readFileSync(`${metadataFileName}.json`)))
+                }
+            }
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
 
-function fetchCsvWordSet() {
-    return wordSetFileReader.getNextWordSet(WORD_SET_SIZE)  
+    return data
 }

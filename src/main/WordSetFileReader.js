@@ -4,16 +4,28 @@ const fs = require('node:fs')
 const readline = require('node:readline')
 
 module.exports = class WordSetFileReader {
-    #stream
-    #rl
-    #lineIterator
+    #filepath = null
+    #stream = null
+    #rl = null
+    #lineIterator = null
 
     // constructor
-    constructor(filePath) {
-        this.#stream = fs.createReadStream(filePath)
+    constructor() {}
+
+    // register a new filepath
+    async registerNewFilepath(filepath) {
+        // clean up current file
+        // if (filepath != null) {
+        //     this.#stream.destroy()
+        //     this.#rl.close()
+        //     this.#lineIterator = null
+        // }
+
+        this.#filepath = filepath
+        this.#stream = fs.createReadStream(filepath)
         this.#rl = readline.createInterface({ input: this.#stream })
         this.#lineIterator = this.#rl[Symbol.asyncIterator]()
-    }   
+    }
 
     async getNextWordSet(size) {
         let lines = []

@@ -43,6 +43,6 @@ class PageBuilder {
             buttonContainerContainer.appendChild(buttonContainer)
         }
 
-        document.getElementById("quiz-content-wrapper").appendChild(buttonContainerContainer)
+        document.getElementById("main-content-wrapper").appendChild(buttonContainerContainer)
     }
 }

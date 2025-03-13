@@ -26,7 +26,7 @@ h1 {
     padding: 4px;
 }
 
-.quiz-content-wrapper {
+.main-content-wrapper {
     background-color: #1d1d1d;
     
     display: flex;
@@ -179,5 +179,43 @@ h1 {
 }
 
 #neuter-button:hover #neuter-icon{
+    filter: brightness(33%);
+}
+
+.pack-button {
+    background-color: #a1a1a1;
+    border: none;
+
+    font-size: larger;
+    font-family: 'Trebuchet MS';
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100px;
+    height: 80px;
+    border-radius: 25%;
+
+    transition: 333ms;
+}
+
+.pack-button:hover {
+    filter: brightness(133%);
+    width: 105px;
+    height: 84px;
+}
+
+.pack-button:active {
+    filter: brightness(66%);
+    width: 100px;
+    height: 80px;
+}
+
+.pack-icon {
+    transition: 333ms;
+}
+
+.pack-button:hover .pack-icon{
     filter: brightness(33%);
 }
