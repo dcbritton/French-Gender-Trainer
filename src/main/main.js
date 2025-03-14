@@ -25,9 +25,13 @@ const createWindow = () => {
 app.whenReady().then(() => {
 
     // handler for starting session
-    ipcMain.handle('start-session', async () => {
+    ipcMain.handle('start-session', async (_event, id) => {
+        const packDirectory = path.join(__dirname, '..', '..', 'packs', id)
+        await wordSetFileReader.registerNewFilepath(path.join(packDirectory, `${id}.jsonl`))
+        const currentPackInfo = JSON.parse(fs.readFileSync(path.join(packDirectory, `${id}.json`)))
         await sessionState.init()
         return {
+            currentPackInfo: currentPackInfo,
             nextWord: sessionState.getCurrentWord(),
             numCorrect: sessionState.getNumCorrect(),
             numWordsSeen: sessionState.getNumWordsSeen()
@@ -45,61 +49,13 @@ app.whenReady().then(() => {
         }
     })
 
-    // handler for button components request
-    ipcMain.handle('buttons', async () => {
-        return fetchButtons()
-    })
-
     // handler for pack request when loading home page
     ipcMain.handle('get-packs', async () => {
         return getPackInfo()
     })
 
-    // for pack selection
-    ipcMain.handle('select-pack', async (_event, id) => {
-        await wordSetFileReader.registerNewFilepath(path.join(__dirname, '..', '..', 'packs', id, `${id}.jsonl`))
-        console.log(`pack selected: ${id}`)
-    })
-
     createWindow()
 })
-
-function fetchButtons() {
-    // @TODO: determine which buttons to get by language
-    const buttonHTMLs = []
-
-    // get masculine button
-    try {
-        const data = fs.readFileSync(path.join(__dirname, 'components', 'mascButton.html'), 'utf8')
-        buttonHTMLs.push(data)
-    }
-    catch (err) {
-        console.error(err)
-        return ['<span>Issue acquiring buttons</span>']
-    }
-
-    // get feminine button
-    try {
-        const data = fs.readFileSync(path.join(__dirname, 'components', 'femButton.html'), 'utf8')
-        buttonHTMLs.push(data)
-    }
-    catch (err) {
-        console.error(err)
-        return ['<span>Issue acquiring buttons</span>']
-    }
-
-    // get neuter button
-    try {
-        const data = fs.readFileSync(path.join(__dirname, 'components', 'neuterButton.html'), 'utf8')
-        buttonHTMLs.push(data)
-    }
-    catch (err) {
-        console.error(err)
-        return ['<span>Issue acquiring buttons</span>']
-    }
-    
-    return buttonHTMLs
-}
 
 function getPackInfo() {
     const packDirectory = path.join(__dirname, '..', '..', 'packs')

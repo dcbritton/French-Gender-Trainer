@@ -1,27 +1,21 @@
 // script.js
 // this file contains scripts for the front-end
 
-async function startSession() {
-    const response = await window.fromMain.startSession()
-    return response
-}
-
-async function processAnswer(answer) {
-    const response = await window.fromMain.processAnswer(answer)
-    return response
-}
-
-async function fetchButtons() {
-    const response = await window.fromMain.fetchButtons()
-    return response
-}
-
 async function getPackInfo() {
     const response = await window.fromMain.getPackInfo()
     return response
 }
 
-const pageBuilder = new PageBuilder(fetchButtons, startSession, processAnswer)
+const pageBuilder = new PageBuilder(
+    async (id) => {
+        const response = await window.fromMain.startSession(id)
+        return response
+    },
+    async (answer) => {
+        const response = await window.fromMain.processAnswer(answer)
+        return response 
+    }
+)
 
 // called on load of body tag in index.html
 // replaces innerHTML of the body with the home page
@@ -52,13 +46,10 @@ async function setup() {
 
 // select a pack
 async function select(id) {
-    await window.fromMain.selectPack(id)
-
     // switch to session page
     const sessionHTML = await fetch("session.html")
     document.getElementById("body").innerHTML = await sessionHTML.text()
-
-    pageBuilder.init()
+    await pageBuilder.startSession(id)
 }
 
 // response button onclick
