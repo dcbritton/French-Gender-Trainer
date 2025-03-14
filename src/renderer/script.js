@@ -2,33 +2,22 @@
 // this file contains scripts for the front-end
 
 const pageBuilder = new PageBuilder(
-    async () => {
-        const response = await window.fromMain.getPackInfo()
-        return response
-    },
-    async (id) => {
-        const response = await window.fromMain.startSession(id)
-        return response
-    },
-    async (answer) => {
-        const response = await window.fromMain.processAnswer(answer)
-        return response 
-    }
+    async () => { return await window.fromMain.getPackInfo() },
+    async (id) => { return await window.fromMain.startSession(id) },
+    async (answer) => { return await window.fromMain.processAnswer(answer) }
 )
 
-// called on load of body tag in index.html
-// replaces innerHTML of the body with the home page
+// called upon load of body tag in index.html
 async function setup() {
     pageBuilder.startHomePage()
 }
 
-// select a pack
+// called upon user's selection of a pack
 async function select(id) {
     await pageBuilder.startSession(id)
 }
 
-// response button onclick
-function handleResponseButtonClick(answer) {
-    // pageBuilder asks main process for score data and next word
+// called upon user's click of a response button
+async function handleResponseButtonClick(answer) {
     pageBuilder.processAnswer(answer)
 }
