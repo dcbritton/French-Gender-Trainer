@@ -2,7 +2,7 @@
 
 class PageBuilder {
     
-    constructor(startSession, processAnswer) {
+    constructor(getPackInfo, startSession, processAnswer) {
         this.startHomePage = async () => {
             // get and display the home page
             const response = await fetch('home.html')

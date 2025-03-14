@@ -1,12 +1,11 @@
 // script.js
 // this file contains scripts for the front-end
 
-async function getPackInfo() {
-    const response = await window.fromMain.getPackInfo()
-    return response
-}
-
 const pageBuilder = new PageBuilder(
+    async () => {
+        const response = await window.fromMain.getPackInfo()
+        return response
+    },
     async (id) => {
         const response = await window.fromMain.startSession(id)
         return response
