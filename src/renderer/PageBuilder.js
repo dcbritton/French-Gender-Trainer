@@ -37,6 +37,7 @@ class PageBuilder {
             
             // update UI accordingly
             await this.#createSessionButtons(response.currentPackInfo.classes)
+            document.getElementById("pack-title").innerText = response.currentPackInfo.title
             document.getElementById("current-word").innerText = response.nextWord
             document.getElementById("current-score").innerText = `${response.numCorrect}/${response.numWordsSeen}`
         }
