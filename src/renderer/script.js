@@ -46,9 +46,6 @@ async function setup() {
 
 // select a pack
 async function select(id) {
-    // switch to session page
-    const sessionHTML = await fetch("session.html")
-    document.getElementById("body").innerHTML = await sessionHTML.text()
     await pageBuilder.startSession(id)
 }
 

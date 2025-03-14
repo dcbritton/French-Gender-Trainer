@@ -4,10 +4,17 @@ class PageBuilder {
     
     constructor(startSession, processAnswer) {
         this.startSession = async (id) => {
+            // switch to session page
+            const sessionHTML = await fetch("session.html")
+            document.getElementById("body").innerHTML = await sessionHTML.text()
+
+            // get session info via IPC
             const response = await startSession(id)
+            
+            // update UI accordingly
+            this.#createButtons(response.currentPackInfo.classes)
             document.getElementById("current-word").innerText = response.nextWord
             document.getElementById("current-score").innerText = `${response.numCorrect}/${response.numWordsSeen}`
-            this.#createButtons(response.currentPackInfo.classes)
         }
         this.processAnswer = async (answer) => {
             const response = await processAnswer(answer)
@@ -18,7 +25,6 @@ class PageBuilder {
     }
 
     async #createButtons(classes) {
-        console.log("create buttons called")
         // get button HTMLs
         const buttonHTMLs= []
         for (const cl of classes) {
