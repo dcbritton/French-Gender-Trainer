@@ -15,11 +15,11 @@ module.exports = class WordSetFileReader {
     // register a new filepath
     async registerNewFilepath(filepath) {
         // clean up current file
-        // if (filepath != null) {
-        //     this.#stream.destroy()
-        //     this.#rl.close()
-        //     this.#lineIterator = null
-        // }
+        if (this.#filepath != null) {
+            this.#stream.destroy()
+            this.#rl.close()
+            this.#lineIterator = null
+        }
 
         this.#filepath = filepath
         this.#stream = fs.createReadStream(filepath)
