@@ -54,6 +54,15 @@ app.whenReady().then(() => {
         return getPackInfo()
     })
 
+    // handler for quitting a session
+    ipcMain.handle('quit-session', async(_event) => {
+        // release wordSetFileReader's resources
+        wordSetFileReader.unregisterCurrentFile()
+        return {
+            success: true
+        }
+    })
+
     createWindow()
 })
 

@@ -16,8 +16,8 @@ module.exports = class WordSetFileReader {
     async registerNewFilepath(filepath) {
         // clean up current file
         if (this.#filepath != null) {
-            this.#stream.destroy()
             this.#rl.close()
+            this.#stream.destroy()
             this.#lineIterator = null
         }
 
@@ -25,6 +25,13 @@ module.exports = class WordSetFileReader {
         this.#stream = fs.createReadStream(filepath)
         this.#rl = readline.createInterface({ input: this.#stream })
         this.#lineIterator = this.#rl[Symbol.asyncIterator]()
+    }
+
+    async unregisterCurrentFile() {
+        this.#filepath = null
+        this.#rl.close()
+        this.#stream.destroy()
+        this.#lineIterator = null
     }
 
     async getNextWordSet(size) {

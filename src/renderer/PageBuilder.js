@@ -2,7 +2,7 @@
 
 class PageBuilder {
     
-    constructor(getPackInfo, startSession, processAnswer) {
+    constructor(getPackInfo, startSession, processAnswer, saveSession, quitSession) {
 
         // loads the home page
         this.startHomePage = async () => {
@@ -50,6 +50,21 @@ class PageBuilder {
             // update UI accordingly
             document.getElementById("current-word").innerText = response.nextWord
             document.getElementById("current-score").innerText = `${response.numCorrect}/${response.numWordsSeen}`  
+        }
+
+        // @TODO: implement session saving
+        // save a user's progress in a session
+        this.saveSession = async (state) => {
+            return
+        }
+
+        // quit a session, return home
+        this.quitSession = async () => {
+            console.log("renderer quit session log")
+            const response = await quitSession()
+
+            // return to home page
+            this.startHomePage()
         }
     }
 
