@@ -1,6 +1,7 @@
 {
     "id": "fr",
     "title": "100 Common Nouns FR",
+    "imagePath": "fr_flag.png",
     "class": "gender",
     "classes": ["m", "f"]
 }

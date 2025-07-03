@@ -1,6 +1,7 @@
 {
     "id": "mock_de",
     "title": "10 Nouns DE",
+    "imagePath": "de_flag.png",
     "class": "gender",
     "classes": ["m", "f", "n"]
 }

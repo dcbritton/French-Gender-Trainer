@@ -27,8 +27,8 @@ app.whenReady().then(() => {
     // handler for starting session
     ipcMain.handle('start-session', async (_event, id) => {
         const packDirectory = path.join(__dirname, '..', '..', 'packs', id)
-        await wordSetFileReader.registerNewFilepath(path.join(packDirectory, `${id}.jsonl`))
-        const currentPackInfo = JSON.parse(fs.readFileSync(path.join(packDirectory, `${id}.json`)))
+        await wordSetFileReader.registerNewFilepath(path.join(packDirectory, `data.jsonl`))
+        const currentPackInfo = JSON.parse(fs.readFileSync(path.join(packDirectory, `metadata.json`)))
         await sessionState.init()
         return {
             currentPackInfo: currentPackInfo,
@@ -67,26 +67,28 @@ app.whenReady().then(() => {
 })
 
 function getPackInfo() {
-    const packDirectory = path.join(__dirname, '..', '..', 'packs')
-    const directoryEntryNames = fs.readdirSync(packDirectory)
+    const packsDirectory = path.join(__dirname, '..', '..', 'packs')
+    const directoryEntryNames = fs.readdirSync(packsDirectory)
     // console.log(packFolderNames)
-    const data = []
+    const packsData = []
     for (const entryName of directoryEntryNames) {
-        try {
-            // is it a directory
-            if (fs.statSync(path.join(packDirectory, entryName)).isDirectory()) {
-                const metadataFileName = path.join(packDirectory, entryName, `${entryName}`)
-                // check that the json file is there
-                if (fs.existsSync(`${metadataFileName}.json`)) {
-                    // read file, parse to JSON, append to data array
-                    data.push(JSON.parse(fs.readFileSync(`${metadataFileName}.json`)))
-                }
-            }
-        }
-        catch (err) {
-            console.log(err)
+        // is it a directory and is the json file is there
+        const entryDirectory = path.join(packsDirectory, entryName)
+        if (fs.statSync(entryDirectory).isDirectory() && fs.existsSync(path.join(entryDirectory,`metadata.json`))) {
+
+            // read file, parse to JSON
+            const packInfo = JSON.parse(fs.readFileSync(path.join(entryDirectory,`metadata.json`)))
+
+            // check if image exists
+            // if(fs.existsSync()) {
+            //     return
+            // }
+            
+            const imageData = fs.readFileSync(path.join(entryDirectory, packInfo.imagePath)).toString("base64")
+            packInfo["image"] = imageData
+            packsData.push(packInfo)
         }
     }
 
-    return data
+    return packsData
 }

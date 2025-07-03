@@ -12,6 +12,7 @@ class PageBuilder {
             
             // get info for button packs
             const packInfo = await getPackInfo()
+            console.log(packInfo)
             
             // create and add pack choice buttons
             const buttonContainerContainer = document.createElement("div")
@@ -20,7 +21,10 @@ class PageBuilder {
             for (const pack of packInfo) {
                 const buttonContainer = document.createElement("div")
                 buttonContainer.setAttribute("class", "button-container")
-                buttonContainer.innerHTML += `<button class="pack-button" onclick="select('${pack.id}')">${pack.title}</button>`
+                buttonContainer.innerHTML +=
+                `<button class="pack-button" onclick="select('${pack.id}')">
+                    <img src="data:image/png;base64,${pack.image}" alt="${pack.title}" title="${pack.title}">
+                </button>`
                 buttonContainerContainer.appendChild(buttonContainer)
             }
             document.getElementById("main-content-wrapper").appendChild(buttonContainerContainer)
