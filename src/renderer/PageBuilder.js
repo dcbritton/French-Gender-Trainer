@@ -23,7 +23,7 @@ class PageBuilder {
                 buttonContainer.setAttribute("class", "button-container")
                 buttonContainer.innerHTML +=
                 `<button class="pack-button" onclick="select('${pack.id}')">
-                    <img src="data:image/png;base64,${pack.image}" alt="${pack.title}" title="${pack.title}">
+                    <img class="pack-icon" draggable="false" src="data:image/png;base64,${pack.image}" alt="${pack.title}" title="${pack.title}">
                 </button>`
                 buttonContainerContainer.appendChild(buttonContainer)
             }
