@@ -60,4 +60,11 @@ module.exports = class SessionState {
         }
         this.#numWordsSeen += 1
     }
+
+    clear() {
+        this.#numWordsSeen = 0
+        this.#numCorrect = 0
+        this.#missedWords = []
+        this.#wordBuffer = []  
+    }
 }

@@ -58,6 +58,7 @@ app.whenReady().then(() => {
     ipcMain.handle('quit-session', async(_event) => {
         // release wordSetFileReader's resources
         wordSetFileReader.unregisterCurrentFile()
+        sessionState.clear()
         return {
             success: true
         }
