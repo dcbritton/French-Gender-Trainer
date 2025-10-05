@@ -39,7 +39,7 @@ module.exports = class WordSetFileReader {
         while (lines.length < size) {
             const { value: line, done } = await this.#lineIterator.next()
             if (done) {
-                this.rl.close()
+                this.#rl.close()
                 break
             }
 

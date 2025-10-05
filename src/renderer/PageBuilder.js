@@ -51,15 +51,18 @@ class PageBuilder {
             // await updated info from IPC
             const response = await processAnswer(answer)
 
+            if (response.endOfList) {
+                console.log(response)
+            }
+
             // update UI accordingly
             document.getElementById("current-word").innerText = response.nextWord
             document.getElementById("current-score").innerText = `${response.numCorrect}/${response.numWordsSeen}`  
         }
 
-        // @TODO: implement session saving
-        // save a user's progress in a session
-        this.saveSession = async (state) => {
-            return
+        this.displayEndOfSession = async () => {
+            const sessionEndHTML = await fetch("session-end.html")
+            document.getElementById("body").innerHTML = await sessionEndHTML.text()
         }
 
         // quit a session, return home

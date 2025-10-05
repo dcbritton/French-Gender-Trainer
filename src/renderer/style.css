@@ -212,7 +212,6 @@ h1 {
 
 .pack-icon {
     transition: 333ms;
-    opacity: 1 !important;
 }
 
 .pack-icon:active {

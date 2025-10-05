@@ -42,10 +42,18 @@ app.whenReady().then(() => {
     ipcMain.handle('process-answer', async (_event, answer) => {
         sessionState.updateScore(answer)
         await sessionState.next()
+        if (sessionState.atEnd()) {
+            console.log("END")
+            return {
+                endOfList: true,
+                missedWords: sessionState.getMissedWords()
+            }
+        }
         return {
             nextWord: sessionState.getCurrentWord(),
             numCorrect: sessionState.getNumCorrect(),
-            numWordsSeen: sessionState.getNumWordsSeen() 
+            numWordsSeen: sessionState.getNumWordsSeen(),
+            endOfList: false
         }
     })
 

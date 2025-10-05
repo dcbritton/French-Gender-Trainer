@@ -39,6 +39,15 @@ module.exports = class SessionState {
         return this.#wordBuffer[CURRENT_WORD_INDEX].classes
     }
 
+    getMissedWords() {
+        return this.#missedWords
+    }
+
+    // when next() fails to refill the buffer
+    atEnd() {
+        return this.#wordBuffer.length == 0
+    }
+
     // must be async since this.#refillBuffer() is async
     async next() {
         this.#wordBuffer.shift()
